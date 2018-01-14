@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="add_coins_dialog_height">300dp</dimen>
+    <dimen name="add_coins_dialog_width_space">20dp</dimen>
+    <dimen name="add_coins_dialog_title_text_size">18sp</dimen>
+    <dimen name="header_height">150dp</dimen>
+    <dimen name="letter_spacing">0.04</dimen>
+    <dimen name="toolbar_left_spaceing">16dp</dimen>
+    <dimen name="lower_toolbar_height">40dp</dimen>
+    <dimen name="bottom_toolbar_items_margin">9dp</dimen>
+    <dimen name="bottom_toolbar_height">70dp</dimen>
+
+</resources>

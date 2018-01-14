@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/first_ticker_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_coin_1"
+        android:maxWidth="100dp"
+        android:maxLines="1"
+        android:maxLength="4"
+        android:inputType="textCapCharacters"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/slash_view"
+        app:layout_constraintHorizontal_chainStyle="packed">
+        <requestFocus />
+        </EditText>
+
+    <View
+        android:id="@+id/slash_view"
+        android:layout_width="20dp"
+        android:layout_height="50dp"
+        android:background="@drawable/slash"
+        android:maxLines="1"
+        android:maxLength="4"
+
+        app:layout_constraintEnd_toStartOf="@+id/second_ticker_edit_text"
+        app:layout_constraintStart_toEndOf="@+id/first_ticker_edit_text"
+        />
+
+    <EditText
+        android:id="@+id/second_ticker_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="@string/hint_coin_2"
+        android:maxWidth="100dp"
+        android:maxLines="1"
+        android:inputType="textCapCharacters"
+
+        app:layout_constraintStart_toEndOf="@+id/slash_view"
+        />
+
+    <EditText
+        android:id="@+id/position_avg_edit_text"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:hint="@string/hint_avg_position"
+        android:inputType="numberDecimal"
+        android:lines="1"
+
+        android:maxLines="1"
+        android:maxWidth="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/second_ticker_edit_text" />
+
+</android.support.constraint.ConstraintLayout>

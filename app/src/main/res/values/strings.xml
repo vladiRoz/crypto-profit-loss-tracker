@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Crypto Profit Loss Tracker</string>
+    <string name="launcher_app_name">Crypto Profit Loss Tracker</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pair">Pair</string>
+    <string name="last_price"><font size="15">Last Price</font><font size="10">\nAVG price</font></string>
+    <string name="profit_loss">Profit / Loss %</string>
+
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
+    <string name="add_coins_to_watch">Add coins pair (tickers) and position average</string>
+
+    <string name="hint_coin_1"><font size="15">Ticker</font></string>
+    <string name="hint_coin_2"><font size="15">BTC / USDT</font></string>
+    <string name="hint_avg_position"><font size="15">AVG price</font></string>
+    <string name="total_pl">Total P/L</string>
+
+    <string name="empty_state">Add coins to start tracking price</string>
+
+    <string name="edit">Edit</string>
+    <string name="chart">Chart</string>
+    <string name="alarm">Alarm</string>
+    <string name="delete">Delete</string>
+
+</resources>
