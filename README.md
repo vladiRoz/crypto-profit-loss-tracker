@@ -1,4 +1,4 @@
-# crypto-profitloss-tracker
+# crypto-profit-loss-tracker
 Android app that tracks your crypto investments profit loss on Bittrex exchange
 
 Google Play: https://play.google.com/store/apps/details?id=status.portfolio.crypto.vladi.cryptoportfoliostatus
