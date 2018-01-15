@@ -24,10 +24,9 @@ interface CoinsListController : Delegation {
     fun refresh()
     fun onNewData(coin: Coin)
     fun onUpdatedData(coin: Coin)
-//    fun getCoins() : HashMap<String, Coin>?
-//    fun addNewData(ticker1 : String, ticker2 : String , avgPosition : Double)
     fun addReceivedCoinListener(listener : ReceivedCoinListener)
     fun onBackPressed() : Boolean
     fun delegateOptionButtonView(fab : ImageButton)
     fun setOptionButtonMode(optionButtonMode: OptionButtonMode)
+    fun deleteCoin(coin : Coin)
 }

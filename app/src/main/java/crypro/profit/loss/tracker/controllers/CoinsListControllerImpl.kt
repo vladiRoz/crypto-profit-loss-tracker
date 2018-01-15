@@ -136,11 +136,15 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
     private fun onDeleteCoins() {
         val deleteList = ui.getCoinsToDelete()
         if (deleteList.size > 0) {
-            persistence?.delete(deleteList)
-            notifyDeletedCoins(deleteList)
             ui.onCoinsDeleted(deleteList)
-            Stream.of(deleteList).forEach { coin -> coinMap?.remove(Utils.getMarketName(coin.ticker1, coin.ticker2)) }
+            processDeleteCoin(deleteList)
         }
+    }
+
+    private fun processDeleteCoin(deleteList: ArrayList<Coin>) {
+        persistence?.delete(deleteList)
+        notifyDeletedCoins(deleteList)
+        Stream.of(deleteList).forEach { coin -> coinMap?.remove(Utils.getMarketName(coin.ticker1, coin.ticker2)) }
     }
 
     private fun onAddNewCoins(listener: NewCoinListener) {
@@ -185,6 +189,12 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
             val market = Utils.getMarketName(coin.ticker1, coin.ticker2)
             apiManager.getCoinStats(market, completion)
         }
+    }
+
+    override fun deleteCoin(coin: Coin) {
+        var list = ArrayList<Coin>()
+        list.add(coin)
+        processDeleteCoin(list)
     }
 
 }

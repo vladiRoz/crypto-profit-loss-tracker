@@ -26,7 +26,7 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     private var controller: CoinsListController? = null
     private var coinsToDelete: ArrayList<Coin> = ArrayList<Coin>()
     private var emptyStateView: View? = null
-    private var chosenCoin : Coin? = null
+    private var chosenCoin: Coin? = null
 
     companion object {
         fun newInstance(): CoinsListFragment<CoinFragmentUICallback> {
@@ -134,7 +134,7 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
         controller?.refresh()
         // Bittrex exchange allows only on market at a time
         // I don't want to show the refresh too much time
-        Handler().postDelayed( { if (isAdded) refreshView.isRefreshing = false }, 1000)
+        Handler().postDelayed({ if (isAdded) refreshView.isRefreshing = false }, 1000)
     }
 
     private fun disableBottomBar() {
@@ -150,7 +150,7 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     }
 
     override fun onItemClicked(item: BottomToolbar.Items) {
-        when (item){
+        when (item) {
             BottomToolbar.Items.delete -> onDeleteItem()
             BottomToolbar.Items.edit -> onEditItem()
             BottomToolbar.Items.chart -> onItemChart()
@@ -167,11 +167,13 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     }
 
     private fun onEditItem() {
-
+        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT)
     }
 
     private fun onDeleteItem() {
-
+        controller?.deleteCoin(chosenCoin!!)
+        (recycler?.adapter as CoinAdapter).deleteCoin(chosenCoin!!)
+        disableBottomBar()
     }
 
 

@@ -17,7 +17,7 @@ android {
         config {
             keyAlias 'key'
             keyPassword '1q@W3e'
-            storeFile file('/Users/vladi/Android/personal/Blockchain/CryptoPortfolioStatus/release')
+            storeFile file('/Users/vladi/Android/personal/Blockchain/CryptoProfitLossTracker/release')
             storePassword '1q@W3e'
         }
     }

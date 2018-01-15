@@ -1,23 +1,23 @@
 package crypro.profit.loss.tracker.ui
 
-import android.support.v7.widget.RecyclerView
-import android.text.SpannableString
-import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.coin_view_layout.view.*
-import crypro.profit.loss.tracker.persistance.Coin
-import crypro.profit.loss.tracker.utils.Utils
-import crypro.profit.loss.tracker.utils.inflate
-import android.text.Spanned
-import android.text.style.TextAppearanceSpan
-import android.widget.TextView
 import android.graphics.drawable.GradientDrawable
 import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.RecyclerView
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.TextAppearanceSpan
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.annimon.stream.Stream
 import crypro.profit.loss.tracker.CoinsStatusApplication
 import crypro.profit.loss.tracker.R
 import crypro.profit.loss.tracker.api.CryptoExchangeApi
+import crypro.profit.loss.tracker.persistance.Coin
+import crypro.profit.loss.tracker.utils.Utils
+import crypro.profit.loss.tracker.utils.inflate
+import kotlinx.android.synthetic.main.coin_view_layout.view.*
 
 
 /**
@@ -26,7 +26,7 @@ import crypro.profit.loss.tracker.api.CryptoExchangeApi
 class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
     private var coins: ArrayList<Coin> = ArrayList<Coin>()
-    private var recycler : RecyclerView? = null
+    private var recycler: RecyclerView? = null
     private var deleteMode = false
     private var coinClickListener: OnCoinClickListener? = null
     private var profitButtonColor: Int = 0
@@ -34,7 +34,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
 
 
     interface OnCoinClickListener {
-        fun onItemClicked(coin : Coin)
+        fun onItemClicked(coin: Coin)
         fun onDeleteMode(isDeleteMode: Boolean)
         fun onCoinDeleteClicked(coin: Coin)
     }
@@ -78,7 +78,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
         }
 
         private fun initDeleteFunctionality(coinData: Coin) {
-            if (deleteMode){
+            if (deleteMode) {
                 itemView.deleteBox.visibility = View.VISIBLE
                 itemView.deleteBox.isChecked = false
             } else {
@@ -103,7 +103,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
         private fun initLastPrice(coinData: Coin, lastPrice: TextView) {
             if (coinData.lastPrice > -1.0) {
                 var afterDotFormat = PRICE_AFTER_DOTS
-                if (coinData.ticker2.equals(CryptoExchangeApi.Companion.CONSTS.USDT.name.toLowerCase())){
+                if (coinData.ticker2.equals(CryptoExchangeApi.Companion.CONSTS.USDT.name.toLowerCase())) {
                     afterDotFormat = PL_AFTER_DOTS
                 }
 
@@ -132,12 +132,12 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     fun addCoin(coin: Coin?) {
         if (coin != null) {
             val coinIndex = coins.indexOf(coin)
-            if (coinIndex == (-1)){
-            // new coin added
+            if (coinIndex == (-1)) {
+                // new coin added
                 coins.add(coin)
                 notifyItemInserted(coins.size - 1)
             } else {
-            // update data received
+                // update data received
                 coins[coinIndex] = coin
                 notifyItemChanged(coinIndex)
             }
@@ -154,7 +154,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
         return false
     }
 
-    fun setDeleteMode(isShow : Boolean){
+    fun setDeleteMode(isShow: Boolean) {
         deleteMode = isShow
         notifyDataSetChanged()
     }
@@ -170,7 +170,7 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
     }
 
     fun deleteCoins(deletedList: ArrayList<Coin>) {
-        Stream.of(deletedList).forEach { coin -> findViewAtPosition(findPosition(coin)).itemView.deleteBox.isChecked = false}
+        Stream.of(deletedList).forEach { coin -> findViewAtPosition(findPosition(coin)).itemView.deleteBox.isChecked = false }
         coins.removeAll(deletedList)
         notifyDataSetChanged()
     }
@@ -185,15 +185,18 @@ class CoinAdapter : RecyclerView.Adapter<CoinAdapter.ViewHolder>() {
         recycler = recyclerView
     }
 
-    private fun findViewAtPosition(position : Int) : ViewHolder {
+    private fun findViewAtPosition(position: Int): ViewHolder {
         return recycler?.findViewHolderForAdapterPosition(position) as ViewHolder
     }
 
-    private fun findPosition(coin : Coin): Int {
+    private fun findPosition(coin: Coin): Int {
         return coins.lastIndexOf(coin)
     }
 
-
-
+    fun deleteCoin(coin: Coin) {
+        val pos = findPosition(coin)
+        coins.removeAt(pos)
+        notifyItemRemoved(pos)
+    }
 
 }
