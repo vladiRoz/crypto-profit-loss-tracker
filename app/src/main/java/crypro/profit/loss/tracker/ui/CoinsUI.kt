@@ -15,4 +15,5 @@ interface CoinsUI {
     fun onCoinsDeleted(deletedCoin: ArrayList<Coin>)
     fun onBackPressed() : Boolean
     fun showEmptyState(isShow : Boolean)
+    fun setDeleteMode(isDeleteMode: Boolean)
 }

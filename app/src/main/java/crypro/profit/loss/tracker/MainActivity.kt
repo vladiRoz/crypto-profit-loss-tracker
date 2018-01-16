@@ -37,7 +37,7 @@ import kotlinx.android.synthetic.main.upper_header_layout.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener, CoinsListController.ReceivedCoinListener, CoinFragmentUICallback {
 
-    private var coinStorage : RoomPersistence? = null
+    private var coinStorage: RoomPersistence? = null
     private var coinsListController: CoinsListController? = null
     private var totalPL = 0.0
     private var plViewCoins: HashMap<String, Coin>? = null
@@ -64,10 +64,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
 
         coinsListController?.showCoinsUI(supportFragmentManager, main_container.id)
 
-}
+    }
 
     override fun onClick(view: View?) {
-        when (view?.id){
+        when (view?.id) {
             fab.id -> coinsListController?.delegate(CoinAction.OptionButtonPressed, this)
             info_button.id -> onClickMoreInfo()
         }
@@ -88,17 +88,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
 
     override fun onCoinReceived(coin: Coin) {
 
-            val key = Utils.getMarketName(coin)
-            if (plViewCoins?.containsKey(key) == false) {
-                totalPL += Utils.calcPL(coin.lastPrice, coin.avgPosition)
-            } else {
-                val prevCoin = plViewCoins?.get(key)
-                val prevCoinPL = Utils.calcPL(prevCoin!!.lastPrice, prevCoin.avgPosition)
-                totalPL += Utils.calcPL(coin!!.lastPrice, coin.avgPosition) - prevCoinPL
-            }
+        val key = Utils.getMarketName(coin)
+        if (plViewCoins?.containsKey(key) == false) {
+            totalPL += Utils.calcPL(coin.lastPrice, coin.avgPosition)
+        } else {
+            val prevCoin = plViewCoins?.get(key)
+            val prevCoinPL = Utils.calcPL(prevCoin!!.lastPrice, prevCoin.avgPosition)
+            totalPL += Utils.calcPL(coin!!.lastPrice, coin.avgPosition) - prevCoinPL
+        }
 
-            plViewCoins?.put(key, Coin(coin))
-            setPLTextView()
+        plViewCoins?.put(key, Coin(coin))
+        setPLTextView()
     }
 
     override fun onCoinsDeleted(coins: List<Coin>) {
@@ -117,13 +117,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
     }
 
     override fun onBackPressed() {
-        if (coinsListController?.onBackPressed() == false){
+        if (coinsListController?.onBackPressed() == false) {
             super.onBackPressed()
         }
     }
 
 
-    private fun onClickMoreInfo(){
+    private fun onClickMoreInfo() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.addToBackStack(MoreInfoFragment.toString())
         transaction.add(container.id, MoreInfoFragment.newInstance()).commit()
@@ -140,12 +140,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         }
 
         override fun getCoinStats(market: String, completion: DataCompletion<CoinResponse?>) {
-            when (market.toLowerCase()){
-                "btc-eth" -> completion.onResponse(CoinResponse("btc-eth", CoinDataResponse(true, "", CoinResultData(0.0,0.0,0.004))))
+            when (market.toLowerCase()) {
+                "btc-eth" -> completion.onResponse(CoinResponse("btc-eth", CoinDataResponse(true, "", CoinResultData(0.0, 0.0, 0.004))))
             }
         }
 
-        override fun checkValidResponse(message: String?) : Boolean {
+        override fun checkValidResponse(message: String?): Boolean {
             return true
         }
 
@@ -154,7 +154,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
     override fun toggleFabVisibility(isVisible: Boolean) {
         if (isVisible) fab.show() else fab.hide()
     }
-
 
 
 }

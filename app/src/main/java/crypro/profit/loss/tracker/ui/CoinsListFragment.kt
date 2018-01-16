@@ -73,6 +73,7 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
 
     override fun onBackPressed(): Boolean {
         if (chosenCoin != null) {
+            chosenCoin = null
             activityCallback?.toggleFabVisibility(true)
             bottomBar.visibility = View.GONE
             return true
@@ -90,12 +91,13 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     }
 
     override fun onItemClicked(coin: Coin) {
-        disableDeleteMode()
-        chosenCoin = coin
-        bottomBar.visibility = View.VISIBLE
-        bottomBar.init()
-
-        activityCallback?.toggleFabVisibility(false)
+        if (chosenCoin == null || chosenCoin?.equals(coin) == false) {
+            disableDeleteMode()
+            chosenCoin = coin
+            bottomBar.visibility = View.VISIBLE
+            bottomBar.init()
+            activityCallback?.toggleFabVisibility(false)
+        }
     }
 
     override fun onCoinDeleteClicked(coin: Coin) {
@@ -174,6 +176,10 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
         controller?.deleteCoin(chosenCoin!!)
         (recycler?.adapter as CoinAdapter).deleteCoin(chosenCoin!!)
         disableBottomBar()
+    }
+
+    override fun setDeleteMode(isDeleteMode: Boolean) {
+        (recycler?.adapter as CoinAdapter).setDeleteMode(isDeleteMode)
     }
 
 

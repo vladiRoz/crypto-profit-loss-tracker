@@ -38,7 +38,7 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
         coinsListeners = ArrayList()
 
         val resources = CoinsStatusApplication.getApplicationContext().resources
-        addDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_add_black_18dp, null)
+        addDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_add_white_18dp, null)
         deleteDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_delete_black_24dp, null)
     }
 
@@ -144,7 +144,13 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
     private fun processDeleteCoin(deleteList: ArrayList<Coin>) {
         persistence?.delete(deleteList)
         notifyDeletedCoins(deleteList)
-        Stream.of(deleteList).forEach { coin -> coinMap?.remove(Utils.getMarketName(coin.ticker1, coin.ticker2)) }
+        Stream.of(deleteList).forEach { coin ->
+            coinMap?.remove(Utils.getMarketName(coin.ticker1, coin.ticker2))
+            if (coinMap?.isEmpty() == true){
+                setOptionButtonMode(CoinsListController.OptionButtonMode.ADD)
+                ui.setDeleteMode(false)
+            }
+        }
     }
 
     private fun onAddNewCoins(listener: NewCoinListener) {
