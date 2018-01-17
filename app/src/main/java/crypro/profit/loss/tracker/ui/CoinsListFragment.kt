@@ -161,15 +161,15 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     }
 
     private fun onItemAlarm() {
-        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT)
+        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun onItemChart() {
-        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT)
+        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT).show()
     }
 
     private fun onEditItem() {
-        Snackbar.make(bottomBar, "In Development", Snackbar.LENGTH_SHORT)
+        controller?.showEdit(chosenCoin!!)
     }
 
     private fun onDeleteItem() {
@@ -181,7 +181,6 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
     override fun setDeleteMode(isDeleteMode: Boolean) {
         (recycler?.adapter as CoinAdapter).setDeleteMode(isDeleteMode)
     }
-
 
 }
 

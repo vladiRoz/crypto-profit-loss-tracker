@@ -155,6 +155,5 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         if (isVisible) fab.show() else fab.hide()
     }
 
-
 }
 

@@ -11,4 +11,5 @@ abstract class AddCoinsControllerImpl(protected var persistence: CoinsPersistenc
     override fun setPersistenceHandler(persistence: CoinsPersistence) {
         this.persistence = persistence
     }
+
 }

@@ -26,7 +26,7 @@ class AddNewCoinsDialog : DialogFragment(), View.OnClickListener {
     private var isValidFields: Boolean = false
 
     companion object {
-        fun newInstance(): AddNewCoinsDialog {
+        fun newInstance(coin: Coin?): AddNewCoinsDialog {
             return AddNewCoinsDialog()
         }
     }

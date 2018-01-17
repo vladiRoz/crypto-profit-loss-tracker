@@ -29,4 +29,5 @@ interface CoinsListController : Delegation {
     fun delegateOptionButtonView(fab : ImageButton)
     fun setOptionButtonMode(optionButtonMode: OptionButtonMode)
     fun deleteCoin(coin : Coin)
+    fun showEdit(coin: Coin)
 }

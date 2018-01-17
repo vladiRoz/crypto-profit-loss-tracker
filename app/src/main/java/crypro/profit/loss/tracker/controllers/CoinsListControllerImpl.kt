@@ -26,6 +26,7 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
 
     private var coinMap: HashMap<String, Coin>? = null
     private var coinsListeners: ArrayList<CoinsListController.ReceivedCoinListener>? = null
+    private var addCoinsController: DialogAddCoinsController? = null
     private var fragmentManager: FragmentManager? = null
     private var container: Int? = null
     private var optionButton: ImageButton? = null
@@ -146,7 +147,7 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
         notifyDeletedCoins(deleteList)
         Stream.of(deleteList).forEach { coin ->
             coinMap?.remove(Utils.getMarketName(coin.ticker1, coin.ticker2))
-            if (coinMap?.isEmpty() == true){
+            if (coinMap?.isEmpty() == true) {
                 setOptionButtonMode(CoinsListController.OptionButtonMode.ADD)
                 ui.setDeleteMode(false)
             }
@@ -154,10 +155,10 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
     }
 
     private fun onAddNewCoins(listener: NewCoinListener) {
-        var addCoinsController = DialogAddCoinsController(persistence)
-        addCoinsController.setNewDataListener(listener)
+        addCoinsController = DialogAddCoinsController(persistence)
+        addCoinsController?.setNewDataListener(listener)
         if (fragmentManager != null && container != null) {
-            addCoinsController.showAddCoinsUI(fragmentManager!!, container!!)
+            addCoinsController?.showAddCoinsUI(fragmentManager!!, container!!)
         }
     }
 
@@ -203,4 +204,9 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
         processDeleteCoin(list)
     }
 
+    override fun showEdit(coin: Coin) {
+        if (fragmentManager != null && container != null) {
+            addCoinsController?.showAddCoinsUI(fragmentManager!!, container!!, coin)
+        }
+    }
 }

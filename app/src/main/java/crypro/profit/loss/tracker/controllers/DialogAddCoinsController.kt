@@ -1,12 +1,12 @@
 package crypro.profit.loss.tracker.controllers
 
 import android.support.v4.app.FragmentManager
+import crypro.profit.loss.tracker.api.Completion
+import crypro.profit.loss.tracker.api.DataCompletion
 import crypro.profit.loss.tracker.persistance.Coin
 import crypro.profit.loss.tracker.persistance.CoinsPersistence
 import crypro.profit.loss.tracker.ui.AddNewCoinsDialog
 import crypro.profit.loss.tracker.ui.NewCoinListener
-import crypro.profit.loss.tracker.api.Completion
-import crypro.profit.loss.tracker.api.DataCompletion
 
 /**
  * Created by vladi on 04/12/2017.
@@ -14,11 +14,16 @@ import crypro.profit.loss.tracker.api.DataCompletion
 class DialogAddCoinsController(persistence: CoinsPersistence?) : AddCoinsControllerImpl(persistence) {
 
     private var listener : NewCoinListener? = null
+    private var newCoinsDialog : AddNewCoinsDialog? = null
 
     override fun showAddCoinsUI(fm: FragmentManager, container: Int) {
-        val newCoinsDialog = AddNewCoinsDialog.newInstance()
-        newCoinsDialog.setController(this)
-        newCoinsDialog.show(fm, newCoinsDialog.tag)
+        showAddCoinsUI(fm, container, null)
+    }
+
+    override fun showAddCoinsUI(fm: FragmentManager, container: Int, coin: Coin?) {
+        newCoinsDialog = AddNewCoinsDialog.newInstance(coin)
+        newCoinsDialog?.setController(this)
+        newCoinsDialog?.show(fm, newCoinsDialog?.tag)
     }
 
     override fun insertCoin(coin: Coin, listener: Completion<Long>) {
@@ -44,7 +49,6 @@ class DialogAddCoinsController(persistence: CoinsPersistence?) : AddCoinsControl
     override fun notifyCoinUpdated(coin: Coin) {
         listener?.onCoinUpdated(coin)
     }
-
 
     override fun findCoin(ticker1: String, ticker2: String, listener: Completion<Coin?>) {
         persistence?.findCoin(ticker1, ticker2, listener)
