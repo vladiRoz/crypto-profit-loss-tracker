@@ -1,19 +1,20 @@
 package crypro.profit.loss.tracker.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
+import android.support.v4.app.FragmentActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.add_new_coins_dialog_layout.*
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentActivity
 import android.view.WindowManager
 import crypro.profit.loss.tracker.R
-import kotlinx.android.synthetic.main.add_coins_item_layout.*
 import crypro.profit.loss.tracker.api.Completion
-import status.portfolio.crypto.vladi.cryptoportfoliostatus.controllers.AddCoinsController
 import crypro.profit.loss.tracker.persistance.Coin
 import crypro.profit.loss.tracker.utils.Utils
+import kotlinx.android.synthetic.main.add_coins_item_layout.*
+import kotlinx.android.synthetic.main.add_new_coins_dialog_layout.*
+import status.portfolio.crypto.vladi.cryptoportfoliostatus.controllers.AddCoinsController
 import java.lang.Double.parseDouble
 
 
@@ -23,11 +24,19 @@ import java.lang.Double.parseDouble
 class AddNewCoinsDialog : DialogFragment(), View.OnClickListener {
 
     private var controller: AddCoinsController? = null
+    private var coin : Coin? = null
     private var isValidFields: Boolean = false
 
     companion object {
+
+        private var EXTRA_COIN = "extra_coin"
+
         fun newInstance(coin: Coin?): AddNewCoinsDialog {
-            return AddNewCoinsDialog()
+            val dialog = AddNewCoinsDialog()
+            val bundle = Bundle()
+            bundle.putParcelable(EXTRA_COIN, coin)
+            dialog.arguments = bundle
+            return dialog
         }
     }
 
@@ -40,6 +49,11 @@ class AddNewCoinsDialog : DialogFragment(), View.OnClickListener {
         cancel_text_view.setOnClickListener(this)
         done_text_view.setOnClickListener(this)
 
+        val bundle = if (arguments != null) arguments else savedInstanceState
+        if (bundle != null){
+            coin = bundle.getParcelable(EXTRA_COIN)
+        }
+
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
 
         initRXValidation()
@@ -51,6 +65,16 @@ class AddNewCoinsDialog : DialogFragment(), View.OnClickListener {
 
         params.height = resources.getDimension(R.dimen.add_coins_dialog_height).toInt()
         dialog.window!!.attributes = params as android.view.WindowManager.LayoutParams
+
+        if (coin != null){
+            first_ticker_edit_text.setText(coin?.ticker2?.toUpperCase())
+            second_ticker_edit_text.setText(coin?.ticker1?.toUpperCase())
+            position_avg_edit_text.setText(coin?.avgPosition.toString())
+        } else {
+            first_ticker_edit_text.setText("")
+            second_ticker_edit_text.setText("")
+            position_avg_edit_text.setText("")
+        }
 
         super.onResume()
     }
@@ -114,6 +138,16 @@ class AddNewCoinsDialog : DialogFragment(), View.OnClickListener {
                         isValidFields = isValid
                     }
                 })
+    }
+
+    fun setCoinToEdit(coin: Coin?) {
+        this.coin = coin
+    }
+
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        coin = null
+        arguments = null
     }
 
 

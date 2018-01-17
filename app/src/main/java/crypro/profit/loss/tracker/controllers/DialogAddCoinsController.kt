@@ -21,7 +21,11 @@ class DialogAddCoinsController(persistence: CoinsPersistence?) : AddCoinsControl
     }
 
     override fun showAddCoinsUI(fm: FragmentManager, container: Int, coin: Coin?) {
-        newCoinsDialog = AddNewCoinsDialog.newInstance(coin)
+        if (newCoinsDialog == null) {
+            newCoinsDialog = AddNewCoinsDialog.newInstance(coin)
+        } else {
+            newCoinsDialog?.setCoinToEdit(coin)
+        }
         newCoinsDialog?.setController(this)
         newCoinsDialog?.show(fm, newCoinsDialog?.tag)
     }

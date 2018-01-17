@@ -37,6 +37,7 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
     init {
         coinMap = HashMap()
         coinsListeners = ArrayList()
+        addCoinsController = DialogAddCoinsController(persistence)
 
         val resources = CoinsStatusApplication.getApplicationContext().resources
         addDrawable = ResourcesCompat.getDrawable(resources, R.drawable.ic_add_white_18dp, null)
@@ -129,7 +130,7 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
 
     private fun <T> onOptionButtonPressed(extraObject: T) {
         when (optionButtonMode) {
-            CoinsListController.OptionButtonMode.ADD -> onAddNewCoins(extraObject as NewCoinListener)
+            CoinsListController.OptionButtonMode.ADD -> onAddNewCoins()
             CoinsListController.OptionButtonMode.DELETE -> onDeleteCoins()
         }
     }
@@ -154,9 +155,11 @@ class CoinsListControllerImpl(val ui: CoinsUI, val apiManager: CoinsApiManager =
         }
     }
 
-    private fun onAddNewCoins(listener: NewCoinListener) {
-        addCoinsController = DialogAddCoinsController(persistence)
+    override fun setUIAddCoinListener(listener: NewCoinListener) {
         addCoinsController?.setNewDataListener(listener)
+    }
+
+    private fun onAddNewCoins() {
         if (fragmentManager != null && container != null) {
             addCoinsController?.showAddCoinsUI(fragmentManager!!, container!!)
         }

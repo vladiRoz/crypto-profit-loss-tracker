@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         val exchangeApi = ExchangeFactory.createExchangeApi(ExchangeFactory.SupportedExchanges.BITTREX)
 
         coinsListController = CoinsListControllerImpl(CoinsListFragment.newInstance(), CoinRequestManager(exchangeApi), coinStorage)
+        coinsListController?.setUIAddCoinListener(this)
         coinsListController?.addReceivedCoinListener(this)
         coinsListController?.delegateOptionButtonView(fab)
 
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
 
     override fun onClick(view: View?) {
         when (view?.id) {
-            fab.id -> coinsListController?.delegate(CoinAction.OptionButtonPressed, this)
+            fab.id -> coinsListController?.delegate(CoinAction.OptionButtonPressed, null)
             info_button.id -> onClickMoreInfo()
         }
     }

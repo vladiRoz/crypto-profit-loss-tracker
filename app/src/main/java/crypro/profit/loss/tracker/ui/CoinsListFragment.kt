@@ -170,6 +170,7 @@ class CoinsListFragment<T : CoinFragmentUICallback> : BaseFragment<T>(), CoinsUI
 
     private fun onEditItem() {
         controller?.showEdit(chosenCoin!!)
+        disableBottomBar()
     }
 
     private fun onDeleteItem() {
