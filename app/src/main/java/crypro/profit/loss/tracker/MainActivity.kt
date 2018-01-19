@@ -14,7 +14,9 @@ import crypro.profit.loss.tracker.controllers.CoinsListController
 import crypro.profit.loss.tracker.controllers.CoinsListControllerImpl
 import crypro.profit.loss.tracker.factories.ExchangeFactory
 import crypro.profit.loss.tracker.managers.CoinRequestManager
+import crypro.profit.loss.tracker.managers.CoinsAlarmManager
 import crypro.profit.loss.tracker.managers.CoinsApiManager
+import crypro.profit.loss.tracker.persistance.AlarmDetails
 import crypro.profit.loss.tracker.persistance.Coin
 import crypro.profit.loss.tracker.persistance.RoomPersistence
 import crypro.profit.loss.tracker.ui.CoinFragmentUICallback
@@ -64,6 +66,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         info_button.setOnClickListener(this)
 
         coinsListController?.showCoinsUI(supportFragmentManager, main_container.id)
+
+        var alarmManager = CoinsAlarmManager(this)
+        val alarm = AlarmDetails("xrp", "btc", 0.00014192, AlarmDetails.Condition.LessThanOrEqualTo)
+        alarmManager.setAlarm(alarm)
+
 
     }
 

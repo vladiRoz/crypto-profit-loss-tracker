@@ -21,6 +21,13 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="ea74a207cb68b6eb1a2960b392e2d7307e8bad7f" />
+
+
+        <service android:name=".service.AlarmService"
+            android:exported="false" />
+
     </application>
+
+
 
 </manifest>
