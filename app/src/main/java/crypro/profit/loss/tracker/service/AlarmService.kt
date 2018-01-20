@@ -3,7 +3,8 @@ package crypro.profit.loss.tracker.service
 import android.app.IntentService
 import android.content.Intent
 import android.util.Log
-import crypro.profit.loss.tracker.managers.CoinsAlarmManager
+import com.google.gson.Gson
+import crypro.profit.loss.tracker.managers.AlarmsManagerImpl
 import crypro.profit.loss.tracker.persistance.AlarmDetails
 
 /**
@@ -15,9 +16,18 @@ class AlarmService : IntentService {
 
     override fun onHandleIntent(intent : Intent?) {
 
-        val details = intent?.getParcelableExtra<AlarmDetails>(CoinsAlarmManager.EXTRA_DETAILS)
-        Log.i("AlarmService", details.toString())
+        if (intent != null) {
 
+            var json = intent.getStringExtra(AlarmsManagerImpl.EXTRA_DETAILS)
+            var details: AlarmDetails = Gson().fromJson<AlarmDetails>(json, AlarmDetails::class.java)
 
+//            val bytes = intent.getByteArrayExtra(CoinAlarmReceiver.EXTRA_DETAILS)
+
+//            val details = AlarmDetails(ParcelableUtil.unmarshal(bytes))
+
+            Log.i("AlarmService", details.toString())
+
+//            CoinsAlarmManager.setAlarm(this, bytes)
+        }
     }
 }
