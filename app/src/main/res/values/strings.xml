@@ -25,4 +25,6 @@
     <string name="alarm">Alarm</string>
     <string name="delete">Delete</string>
 
+    <string name="alarm_trigger">Alarm triggered on %s</string>
+
 </resources>

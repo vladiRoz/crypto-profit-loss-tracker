@@ -33,14 +33,10 @@ object CoinNotificationManager {
             notificationManager.createNotificationChannel(notificationChannel)
         }
 
-        val contentText = StringBuilder()
-
-        contentText.append("Alarm triggered on ").append(marketName)
-
         val builder = NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(R.drawable.ic_add_alarm_black_18dp)
                 .setContentTitle(context.getString(R.string.launcher_app_name))
-                .setContentText(contentText)
+                .setContentText(String.format(context.resources.getString(R.string.alarm_trigger), marketName))
                 .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
 
