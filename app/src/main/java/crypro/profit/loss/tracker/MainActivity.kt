@@ -13,8 +13,8 @@ import crypro.profit.loss.tracker.controllers.CoinAction
 import crypro.profit.loss.tracker.controllers.CoinsListController
 import crypro.profit.loss.tracker.controllers.CoinsListControllerImpl
 import crypro.profit.loss.tracker.factories.ExchangeFactory
+import crypro.profit.loss.tracker.managers.CoinNotificationManager
 import crypro.profit.loss.tracker.managers.CoinRequestManager
-import crypro.profit.loss.tracker.managers.CoinsAlarmJobManager
 import crypro.profit.loss.tracker.managers.CoinsApiManager
 import crypro.profit.loss.tracker.persistance.AlarmDetails
 import crypro.profit.loss.tracker.persistance.Coin
@@ -68,8 +68,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         coinsListController?.showCoinsUI(supportFragmentManager, main_container.id)
 
         val alarm = AlarmDetails("xrp", "btc", 0.00014, AlarmDetails.Condition.GreaterThanOrEqualTo)
-        val alarmManager = CoinsAlarmJobManager(this)
-        alarmManager.setAlarm(500, alarm)
+        CoinNotificationManager.sendNotification(this, alarm)
+        //val alarmManager = CoinsAlarmJobManager(this)
+        //alarmManager.setAlarm(500, alarm)
     }
 
     override fun onClick(view: View?) {

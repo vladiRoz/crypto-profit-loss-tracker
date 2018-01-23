@@ -49,16 +49,19 @@ class CoinJobService : JobService() {
 
                     if (requestManager.checkValidResponse(response?.coinDataResponse?.message) && response?.coinDataResponse?.success!!) {
                         val lastPrice = response.coinDataResponse.result.last
-                        val condition = details?.condition
-                        when (condition) {
+                        when (details?.condition) {
                             AlarmDetails.Condition.LessThanOrEqualTo ->
                                 if (lastPrice <= details!!.triggerValue) {
                                     Log.i("CoinAlarmTask", "TRIGGER")
+                                    onTriggered(details!!)
                                     jobFinished = true
+                                } else {
+                                    Log.i("CoinAlarmTask", "NO TRIGGER")
                                 }
                             AlarmDetails.Condition.GreaterThanOrEqualTo ->
                                 if (lastPrice >= details!!.triggerValue) {
                                     Log.i("CoinAlarmTask", "TRIGGER")
+                                    onTriggered(details!!)
                                     jobFinished = true
                                 } else {
                                     Log.i("CoinAlarmTask", "NO TRIGGER")
@@ -79,6 +82,11 @@ class CoinJobService : JobService() {
             super.onPostExecute(result)
             jobFinished(result, jobFinished)
             CoinsAlarmJobManager(applicationContext).setAlarm(5000, details!!)
+        }
+
+        fun onTriggered(details : AlarmDetails){
+            CoinNotificationManager.sendNotification(applicationContext, details)
+            AlarmRingtoneManager.soundAlarm(applicationContext)
         }
     }
 }
