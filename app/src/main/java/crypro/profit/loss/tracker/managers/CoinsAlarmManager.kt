@@ -12,6 +12,7 @@ import crypro.profit.loss.tracker.receivers.CoinAlarmReceiver
 /**
  * Created by vladi on 19/1/18.
  */
+@Deprecated ("use CoinsAlarmJobManager")
 class CoinsAlarmManager : AlarmsManagerImpl() {
 
     override fun setAlarm(interval : Int, details: AlarmDetails) {

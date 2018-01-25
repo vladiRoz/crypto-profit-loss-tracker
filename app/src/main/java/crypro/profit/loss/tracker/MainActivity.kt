@@ -5,17 +5,13 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.annimon.stream.Stream
 import com.crashlytics.android.Crashlytics
-import crypro.profit.loss.tracker.api.CoinDataResponse
-import crypro.profit.loss.tracker.api.CoinResponse
-import crypro.profit.loss.tracker.api.CoinResultData
-import crypro.profit.loss.tracker.api.DataCompletion
+import crypro.profit.loss.tracker.alarms.CoinJobServiceTest
 import crypro.profit.loss.tracker.controllers.CoinAction
 import crypro.profit.loss.tracker.controllers.CoinsListController
 import crypro.profit.loss.tracker.controllers.CoinsListControllerImpl
 import crypro.profit.loss.tracker.factories.ExchangeFactory
-import crypro.profit.loss.tracker.managers.CoinNotificationManager
 import crypro.profit.loss.tracker.managers.CoinRequestManager
-import crypro.profit.loss.tracker.managers.CoinsApiManager
+import crypro.profit.loss.tracker.managers.CoinsAlarmJobManager
 import crypro.profit.loss.tracker.persistance.AlarmDetails
 import crypro.profit.loss.tracker.persistance.Coin
 import crypro.profit.loss.tracker.persistance.RoomPersistence
@@ -67,10 +63,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
 
         coinsListController?.showCoinsUI(supportFragmentManager, main_container.id)
 
-        val alarm = AlarmDetails("xrp", "btc", 0.00014, AlarmDetails.Condition.GreaterThanOrEqualTo)
-        CoinNotificationManager.sendNotification(this, alarm)
+//        val alarm = AlarmDetails("xrp", "btc", 0.00014, AlarmDetails.Condition.GreaterThanOrEqualTo)
+//        CoinNotificationManager.sendNotification(this, alarm)
         //val alarmManager = CoinsAlarmJobManager(this)
         //alarmManager.setAlarm(500, alarm)
+
+        val details1 = AlarmDetails("xrp", "btc", 0.00014, AlarmDetails.Condition.GreaterThanOrEqualTo)
+
+        val manager = CoinsAlarmJobManager(CoinJobServiceTest::class.java, this)
+//        val manager = CoinsAlarmJobManager(CoinJobService::class.java.toString(), getContext())
+
+        manager.setAlarm(5000, details1)
     }
 
     override fun onClick(view: View?) {
@@ -136,27 +139,27 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, NewCoinListener,
         transaction.add(container.id, MoreInfoFragment.newInstance()).commit()
     }
 
-    class DefaultManager : CoinsApiManager {
-
-        override fun init() {
-
-        }
-
-        override fun destroy() {
-
-        }
-
-        override fun getCoinStats(market: String, completion: DataCompletion<CoinResponse?>) {
-            when (market.toLowerCase()) {
-                "btc-eth" -> completion.onResponse(CoinResponse("btc-eth", CoinDataResponse(true, "", CoinResultData(0.0, 0.0, 0.004))))
-            }
-        }
-
-        override fun checkValidResponse(message: String?): Boolean {
-            return true
-        }
-
-    }
+//    class DefaultManager : CoinsApiManager {
+//
+//        override fun init() {
+//
+//        }
+//
+//        override fun destroy() {
+//
+//        }
+//
+//        override fun getCoinStats(market: String, completion: DataCompletion<CoinResponse?>) {
+//            when (market.toLowerCase()) {
+//                "btc-eth" -> completion.onResponse(CoinResponse("btc-eth", CoinDataResponse(true, "", CoinResultData(0.0, 0.0, 0.004))))
+//            }
+//        }
+//
+//        override fun checkValidResponse(message: String?): Boolean {
+//            return true
+//        }
+//
+//    }
 
     override fun toggleFabVisibility(isVisible: Boolean) {
         if (isVisible) fab.show() else fab.hide()
