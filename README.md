@@ -7,17 +7,20 @@ Bittrex has no in-house app and web login isn't very quick because of 2FA, this 
 
 To start tracking your portfolio just add manually your invested coins and average buy-in. The App doesn't need your private api keys or any credentials so its totally secure and only uses Bittrex public api.
 
-The app is still in development, features/tasks coming in the future:
-Alarms, 
-Binance exchange support, 
-bug fixes, 
+The app is still in development
+# Roadmap:
+Price alarms
+Binance exchange support
+bug fixes
 ui improvments
 
 Tech/libs used:
-Kotlin and only Kotlin, 
-Retrofit, 
-RxJava, 
-Room Persistence, 
+Kotlin and only Kotlin
+Retrofit
+RxJava
+Room Persistence
 Streams
 
 depandency injection with Dagger in dev.
+
+![](http://gph.is/2nfsHus)
