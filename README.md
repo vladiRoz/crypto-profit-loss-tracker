@@ -9,8 +9,8 @@ To start tracking your portfolio just add manually your invested coins and avera
 
 The app is still in development
 
-Roadmap
--------
+# Roadmap
+
 - Price alarms
 - Binance exchange support
 - ui improvments
@@ -23,7 +23,6 @@ Tech/libs used:
 - RxJava
 - Room Persistence
 - Streams
-
-depandency injection with Dagger in dev.
+- depandency injection with Dagger
 
 ![](https://media.giphy.com/media/l1JoiSUeKtgZ4iMnu/giphy.gif)
