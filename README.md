@@ -9,8 +9,8 @@ To start tracking your portfolio just add manually your invested coins and avera
 
 The app is still in development
 
-# Roadmap
-
+Roadmap
+-------
 - Price alarms
 - Binance exchange support
 - ui improvments
