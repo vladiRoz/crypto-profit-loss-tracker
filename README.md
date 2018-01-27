@@ -25,4 +25,5 @@ Tech/libs used:
 - Streams
 - depandency injection with Dagger
 
+
 ![](https://media.giphy.com/media/l1JoiSUeKtgZ4iMnu/giphy.gif)
